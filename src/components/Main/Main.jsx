@@ -1,11 +1,13 @@
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 // Component imports.
 import Overview from '../Overview/Overview';
 import Budget from '../Budget/Budget';
 import Accounts from '../Accounts/Accounts';
 
-function Main() {
+const Main = ({ dispatch, masterList }) => {
+  console.log(masterList);
   return (
     <div>
       ** MAIN TEST **
@@ -23,4 +25,10 @@ function Main() {
   );
 }
 
-export default Main;
+const mapStateToProps = state => {
+  return {
+    masterList: state.transactionList
+  };
+};
+
+export default connect(mapStateToProps)(Main);
