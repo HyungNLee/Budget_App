@@ -7,7 +7,6 @@ import Budget from '../Budget/Budget';
 import Accounts from '../Accounts/Accounts';
 
 const Main = ({ dispatch, masterList }) => {
-  console.log(masterList);
   return (
     <div>
       ** MAIN TEST **

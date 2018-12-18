@@ -2,10 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const TotalBudgetAmount = ({ masterList }) => {
+  
   let totalBudget = 0;
-  // masterList.forEach(transaction => {
-  //   totalBudget += transaction.amount
-  // });
+  
   for (let key in masterList) {
     let numAmount = parseFloat(masterList[key].amount);
     if (masterList[key].flow === 'Expense') {

@@ -1,15 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addNewTransaction } from './../../actions'
+import { addNewTransaction, toggleAddForm } from './../../actions'
+import Moment from 'moment';
+
 // Component imports
 import TransactionItem from '../TransactionItem/TransactionItem';
 
-const Accounts = ({ dispatch, masterList }) => {
+const Accounts = ({ dispatch, masterList, currentlyAdding }) => {
+  
   let _payee = null;
   let _flow = null;
   let _amount = null;
   let _date = null;
   let sortedList = sortListByNewest();
+
+  // Add form view variable.
+  let addingForm;
+
+  let todayDate = Moment(new Date()).format('YYYY-MM-DD');
+
 
   function formatToDollar(amount) {
     return parseFloat(amount).toFixed(2);
@@ -22,26 +31,36 @@ const Accounts = ({ dispatch, masterList }) => {
       transaction.key = key;
       return transaction;
     });
+
+    newList.sort((a, b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime());
     
-    newList.sort((a,b) => new Date(b.transactionDate).getTime() - new Date(a.transactionDate).getTime());
-    console.log(newList);
     return newList;
+  }
+
+  function toggleAddFormEvent() {
+    dispatch(toggleAddForm());
   }
 
   function addNewTransactionEvent(event) {
     event.preventDefault();
 
+    // Checks for invalid inputs.
+    if (_payee.value === '' || _amount.value === null || _date.value === '') {
+      return;
+    }
+
     dispatch(addNewTransaction(_payee.value, _flow.value, formatToDollar(_amount.value), _date.value));
+
     _payee.value = '';
     _flow.value = 'Expense';
     _amount.value = '';
     _date.value = '';
+
+    toggleAddFormEvent();
   };
 
-  return (
-    <div>
-      ** TEST ACCOUNTS **
-      *** TEST ADD NEW TRANSACTION ***
+  if (currentlyAdding) {
+    addingForm =
       <form onSubmit={addNewTransactionEvent} className='add-new-form'>
         <input
           type='text'
@@ -61,9 +80,21 @@ const Accounts = ({ dispatch, masterList }) => {
           placeholder='$0.00'
           ref={(input) => { _amount = input; }}
         />
-        <input type='date' id='date-picker' ref={(input) => {_date = input}} />
+        <input type='date' id='date-picker' defaultValue={todayDate} ref={(input) => { _date = input }} />
         <button type='submit'>Add Transaction</button>
       </form>
+  } else {
+    addingForm =
+      <button onClick={toggleAddFormEvent}>
+        Add New Transaction
+      </button>
+  }
+
+  return (
+    <div>
+      ** TEST ACCOUNTS **
+      *** TEST ADD NEW TRANSACTION ***
+      {addingForm}
       {sortedList.map(transaction =>
         <TransactionItem
           key={transaction.key}
@@ -76,6 +107,7 @@ const Accounts = ({ dispatch, masterList }) => {
 
 const mapStateToProps = state => {
   return {
+    currentlyAdding: state.uiState.currentlyAdding,
     masterList: state.transactionList
   };
 };

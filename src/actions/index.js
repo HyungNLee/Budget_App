@@ -8,3 +8,7 @@ export const addNewTransaction = (payee, flow, amount, transactionDate) => ({
   amount,
   transactionDate
 });
+
+export const toggleAddForm = () => ({
+  type: types.TOGGLE_ADDING_FORM,
+})

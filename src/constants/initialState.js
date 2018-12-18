@@ -1,6 +1,9 @@
 import { v4 } from 'uuid';
 
 export const initialState = {
+  uiState: {
+    currentlyAdding: false,
+  },
   transactionList: {
     [v4()]: {
       // categoryId: '7982uus',
