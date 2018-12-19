@@ -4,6 +4,39 @@ export const initialState = {
   uiState: {
     currentlyAdding: false,
   },
+  // categoriesList: {
+  //   [v4()]: {
+  //     name: 'Monthly Bills',
+  //     subCategories: {
+  //       [1]: {
+  //         name: 'Rent/Mortgage',
+  //         budgeted: 0,
+  //       },
+  //       [2]: {
+  //         name: 'Internet',
+  //         budgeted: 0,
+  //       },
+  //     },
+  //   },
+  // },
+  categoriesList: {
+    groupCategories: {
+      'Monthly Bills': [
+        'Rent/Mortgage',
+        'Internet',
+      ]
+    },
+    subCategories: {
+      'Rent/Mortgage': {
+        budgeted: 500,
+        parentId: 'Monthly Bills',
+      },
+      'Internet': {
+        budgeted: 0,
+        parentId: 'Monthly Bills',
+      }
+    },
+  },
   transactionList: {
     [v4()]: {
       // categoryId: '7982uus',

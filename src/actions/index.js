@@ -1,12 +1,12 @@
 import * as types from './../constants/ActionTypes';
-import { v4 } from 'uuid';
 
-export const addNewTransaction = (payee, flow, amount, transactionDate) => ({
+export const addNewTransaction = (payee, flow, amount, transactionDate, categoryId) => ({
   type: types.ADD_NEW_TRANSACTION,
   payee,
   flow,
   amount,
-  transactionDate
+  transactionDate,
+  categoryId
 });
 
 export const toggleAddForm = () => ({

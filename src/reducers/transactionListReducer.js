@@ -13,7 +13,8 @@ const transactionListReducer = (state = initialState.transactionList, action) =>
       payee: action.payee,
       flow: action.flow,
       amount: action.amount,
-      transactionDate: action.transactionDate
+      transactionDate: action.transactionDate,
+      categoryId: action.categoryId
     });
     console.log(newTransaction);
     newTransactionListSlice = Object.assign({}, state, {
