@@ -30,9 +30,18 @@ const rawData = {
       }
     }
   },
+  Income: {
+    '231355': {
+      payee: 'Job',
+      flow: 'Income',
+      amount: 1000,
+      transactionDate: '2018-11-04'
+    },
+  }
 };
 
 let groupCategories = {};
+let transactionList = {};
 
 Object.keys(rawData.groupCategories).forEach(groupKey => {
   groupCategories[groupKey] = new GroupCategory(groupKey);
@@ -47,10 +56,13 @@ Object.keys(rawData.groupCategories).forEach(groupKey => {
         tempData.payee,
         tempData.flow,
         tempData.amount,
-        tempData.transactionDate
+        tempData.transactionDate,
+        groupKey,
+        subKey
       );
 
-      newSub.addTransaction(transKey, newTrans);
+      newSub.addTransaction(transKey);
+      transactionList[transKey] = newTrans;
     });
 
     groupCategories[groupKey].addSubCategory(newSub);
@@ -64,6 +76,7 @@ export const initialState = {
     currentlyAdding: false,
   },
   groupCategories: groupCategories,
+  transactionList: transactionList,
 }
 
 console.log(initialState);

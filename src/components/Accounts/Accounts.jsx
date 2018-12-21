@@ -6,13 +6,13 @@ import Moment from 'moment';
 // Component imports
 import TransactionItem from '../TransactionItem/TransactionItem';
 
-const Accounts = ({ dispatch, masterList, currentlyAdding, categoriesList }) => {
+const Accounts = ({ dispatch, currentlyAdding, transactionList, groupCategories }) => {
 
   let _payee = null;
   let _flow = null;
   let _amount = null;
   let _date = null;
-  let _category = null;
+  let _categories = null;
   let sortedList = sortListByNewest();
 
   // Add form view variable.
@@ -22,56 +22,23 @@ const Accounts = ({ dispatch, masterList, currentlyAdding, categoriesList }) => 
 
   // Category rendering for category select boxes.
 
-
-  // const categorySelect = () => {
-
-  //   return (
-  //     <h1>yo
-  //     {Object.keys(categoriesList.groupCategories).map(outerCat => (
-  //       <p>{outerCat}</p>
-  //     )).map((inner, ind) => (
-  //       <option key={ind} value={inner}>{...inner}</option>
-  //     ))}
-  //     </h1>
-  //   )
-  // }
-
   const categorySelect = () => {
 
-    let categorySelectView = React.createElement('select', {}, '');
+    // let categorySelectView = React.createElement('select', {}, '');
+    let categorySelectView = [];
 
-      Object.keys(categoriesList.groupCategories)
-        .map(groupCat => {
-          console.log(groupCat);
-          let groupCatView = <option key={groupCat}>{groupCat}</option>
-          categorySelectView.appendChild(groupCatView);
-          let subCatView =
-            Object.keys(categoriesList.subCategories)
-              .map(subCat => {
-                console.log(subCat);
-                let subCatOption = <option key={subCat}>{subCat}</option>
-                // return (subCatOption);
-                categorySelectView.appendChild(subCatView);
-              })
-          // Object.keys(categoriesList.groupCategories)
-          //   .map(groupCat => groupCat)
-          //   .filter(groupCatTwo => groupCatTwo === outerLoop)
-          //   .map(cat => {
-          //     console.log(cat);
-          //     // return <option key={cat}>{cat}</option>
-          //   })
-          // Object.keys(categoriesList.subCategories)
-          //   .map(subCat => subCat)
-          //   .filter(filterSub => filterSub.parentId === outerLoop)
-          //   .map(finalSub => {
-          //     console.log(finalSub);
-          //     // return <option key={finalSub}>{finalSub}</option>
-          //   })
-        })
+    Object.keys(groupCategories)
+      .map(groupKey => {
+        categorySelectView.push(<option disabled key={groupKey}>{groupKey}</option>);
+
+        Object.keys(groupCategories[groupKey].subCategories)
+          .map(subKey => {
+            let newValue = `${groupKey}~~~${subKey}`;
+            categorySelectView.push(<option key={newValue} value={newValue}>{subKey}</option>);
+          });
+      });
 
     return categorySelectView;
-    //   </h1>
-    // )
   }
 
 
@@ -82,8 +49,8 @@ const Accounts = ({ dispatch, masterList, currentlyAdding, categoriesList }) => 
   function sortListByNewest() {
     // Create a new array of keys that are sorted by date.
     // Used if statement so newer additions of the same date are shown first.
-    let keysSorted = Object.keys(masterList).sort((a, b) => {
-      let total = new Date(masterList[b].transactionDate).getTime() - new Date(masterList[a].transactionDate).getTime();
+    let keysSorted = Object.keys(transactionList).sort((a, b) => {
+      let total = new Date(transactionList[b].transactionDate).getTime() - new Date(transactionList[a].transactionDate).getTime();
       if (total === 0) {
         return -1;
       } else {
@@ -101,18 +68,22 @@ const Accounts = ({ dispatch, masterList, currentlyAdding, categoriesList }) => 
   function addNewTransactionEvent(event) {
     event.preventDefault();
 
+    let categories = _categories.value.split('~~~');
+    let newGroup = categories[0];
+    let newSub = categories[1];
+
     // Checks for invalid inputs.
     if (_payee.value === '' || _amount.value === null || _date.value === '') {
       return;
     }
 
-    dispatch(addNewTransaction(_payee.value, _flow.value, formatToDollar(_amount.value), _date.value, _category.value));
+    dispatch(addNewTransaction(_payee.value, _flow.value, formatToDollar(_amount.value), _date.value, newGroup, newSub));
 
     _payee.value = '';
     _flow.value = 'Expense';
     _amount.value = '';
     _date.value = '';
-    _category.value = '';
+    _categories.value = '';
 
     toggleAddFormEvent();
   };
@@ -131,12 +102,12 @@ const Accounts = ({ dispatch, masterList, currentlyAdding, categoriesList }) => 
           placeholder='Pay To'
           ref={(input) => { _payee = input; }}
         />
-        {/* <select
+        <select
           id='category'
-          ref={(input) => { _category = input }}
-        > */}
-        {categorySelect()}
-        {/* </select> */}
+          ref={(input) => { _categories = input }}
+        >
+          {categorySelect()}
+        </select>
         <select
           id='flow'
           ref={(input) => { _flow = input }}
@@ -179,8 +150,8 @@ const Accounts = ({ dispatch, masterList, currentlyAdding, categoriesList }) => 
 const mapStateToProps = state => {
   return {
     currentlyAdding: state.uiState.currentlyAdding,
-    masterList: state.transactionList,
-    categoriesList: state.categoriesList,
+    groupCategories: state.groupCategories,
+    transactionList: state.transactionList,
   };
 };
 

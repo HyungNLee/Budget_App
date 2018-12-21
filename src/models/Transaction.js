@@ -1,9 +1,11 @@
 export default class Transaction {
-  constructor(payee, flow, amount, transactionDate) {
+  constructor(payee, flow, amount, transactionDate, groupCategory, subCategory) {
     this.payee = payee;
     this.flow = flow;
     this.amount = amount;
     this.transactionDate = transactionDate;
+    this.groupCategory = groupCategory;
+    this.subCategory = subCategory;
   }
 
   getName() {
@@ -11,14 +13,22 @@ export default class Transaction {
   }
 
   getFlow() {
-    // returns the value of the flow.
+    return this.flow;
   }
 
   getAmount() {
-    // returns the amount.
+    return this.amount;
   }
 
   getTransactionDate() {
-    // returns the transaction date.
+    return this.transactionDate;
+  }
+
+  getGroupCategory() {
+    return this.groupCategory;
+  }
+
+  getSubCategory() {
+    return this.subCategory;
   }
 }

@@ -2,8 +2,8 @@ export default class SubCategory {
   constructor(name, budgeted) {
     this.name = name;
     this.budgeted = budgeted;
-    this.transactionList = {};
-    // this.totalSpent = this.getTotalSpent();
+    this.transactionList = [];
+    this.totalSpent = this.getTotalSpent();
   }
 
   getName() {
@@ -11,15 +11,22 @@ export default class SubCategory {
   }
 
   getBudgetedAmount() {
-    // Returns the total budgeted amount.
+    return this.budgeted;
   }
 
   getTotalSpent() {
-    // Returns the total amount spend so far in this category.
+    let total = 0;
+    for(let key in this.transactionList) {
+      let transaction = this.transactionList[key];
+      if (transaction.getFlow() === 'Expense') {
+        total += transaction.getAmount();
+      }
+    }
+    return total;
   }
 
-  addTransaction(key, newTrans) {
-    this.transactionList[key] = newTrans;
+  addTransaction(key) {
+    this.transactionList.push(key);
   }
 
   removeTransaction() {

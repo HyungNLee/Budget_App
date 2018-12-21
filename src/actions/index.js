@@ -1,12 +1,13 @@
 import * as types from './../constants/ActionTypes';
 
-export const addNewTransaction = (payee, flow, amount, transactionDate, categoryId) => ({
+export const addNewTransaction = (payee, flow, amount, transactionDate, groupCategory, subCategory) => ({
   type: types.ADD_NEW_TRANSACTION,
   payee,
   flow,
   amount,
   transactionDate,
-  categoryId
+  groupCategory,
+  subCategory
 });
 
 export const toggleAddForm = () => ({
