@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addNewTransaction, toggleAddForm } from './../../actions'
+import { addNewTransaction, toggleAddForm, addToSubList } from './../../actions'
 import Moment from 'moment';
+import { v4 } from 'uuid';
 
 // Component imports
 import TransactionItem from '../TransactionItem/TransactionItem';
@@ -71,13 +72,15 @@ const Accounts = ({ dispatch, currentlyAdding, transactionList, groupCategories 
     let categories = _categories.value.split('~~~');
     let newGroup = categories[0];
     let newSub = categories[1];
+    let newKey = v4();
 
     // Checks for invalid inputs.
     if (_payee.value === '' || _amount.value === null || _date.value === '') {
       return;
     }
 
-    dispatch(addNewTransaction(_payee.value, _flow.value, formatToDollar(_amount.value), _date.value, newGroup, newSub));
+    dispatch(addNewTransaction(newKey, _payee.value, _flow.value, formatToDollar(_amount.value), _date.value, newGroup, newSub));
+    dispatch(addToSubList(newKey, newGroup, newSub));
 
     _payee.value = '';
     _flow.value = 'Expense';

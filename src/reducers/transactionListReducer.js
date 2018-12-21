@@ -1,5 +1,4 @@
 import constants from './../constants';
-import { v4 } from 'uuid';
 import Transaction from '../models/Transaction';
 
 const { initialState, types } = constants;
@@ -9,7 +8,6 @@ const transactionListReducer = (state = initialState.transactionList, action) =>
   let newTransactionListSlice;
   switch (action.type) {
     case types.ADD_NEW_TRANSACTION:
-    const newKey = v4();
     let newTrans = new Transaction(
       action.payee,
       action.flow,
@@ -19,12 +17,8 @@ const transactionListReducer = (state = initialState.transactionList, action) =>
       action.subCategory
     )
 
-    // Add new groupCategoryReducer action to insert key into subcategory transaction list.
-
-    newTransaction = Object.assign({}, state[newKey], newTrans);
-    console.log(newTransaction);
     newTransactionListSlice = Object.assign({}, state, {
-      [newKey]: newTransaction
+      [action.newKey]: newTrans
     });
     console.log(newTransactionListSlice);
     return newTransactionListSlice;
