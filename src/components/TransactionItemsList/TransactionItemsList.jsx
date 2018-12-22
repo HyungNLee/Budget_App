@@ -23,19 +23,21 @@ const TransactionItemsList = ({ transactionList }) => {
   }
   return (
     <table>
-      <tr>
-        <th>Date</th>
-        <th>Payee</th>
-        <th>Category</th>
-        <th>Amount</th>
-        <th>type</th>
-      </tr>
-      {sortedList.map(key =>
-        <TransactionItem
-          key={key}
-          id={key}
-        />
-      )}
+      <tbody>
+        <tr>
+          <th>Date</th>
+          <th>Payee</th>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>type</th>
+        </tr>
+        {sortedList.map(key =>
+          <TransactionItem
+            key={key}
+            id={key}
+          />
+        )}
+      </tbody>
     </table>
   )
 }
