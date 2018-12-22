@@ -5,7 +5,7 @@ import Moment from 'moment';
 import { v4 } from 'uuid';
 
 // Component imports
-import TransactionItem from '../TransactionItem/TransactionItem';
+import TransactionItemsList from '../TransactionItemsList/TransactionItemsList';
 
 const Accounts = ({ dispatch, currentlyAdding, transactionList, groupCategories }) => {
 
@@ -14,7 +14,6 @@ const Accounts = ({ dispatch, currentlyAdding, transactionList, groupCategories 
   let _amount = null;
   let _date = null;
   let _categories = null;
-  let sortedList = sortListByNewest();
 
   // Add form view variable.
   let addingForm;
@@ -45,21 +44,6 @@ const Accounts = ({ dispatch, currentlyAdding, transactionList, groupCategories 
 
   function formatToDollar(amount) {
     return parseFloat(amount).toFixed(2);
-  }
-
-  function sortListByNewest() {
-    // Create a new array of keys that are sorted by date.
-    // Used if statement so newer additions of the same date are shown first.
-    let keysSorted = Object.keys(transactionList).sort((a, b) => {
-      let total = new Date(transactionList[b].transactionDate).getTime() - new Date(transactionList[a].transactionDate).getTime();
-      if (total === 0) {
-        return -1;
-      } else {
-        return total;
-      }
-    });
-
-    return keysSorted;
   }
 
   function toggleAddFormEvent() {
@@ -140,12 +124,7 @@ const Accounts = ({ dispatch, currentlyAdding, transactionList, groupCategories 
       ** TEST ACCOUNTS **
       *** TEST ADD NEW TRANSACTION ***
       {addingForm}
-      {sortedList.map(key =>
-        <TransactionItem
-          key={key}
-          id={key}
-        />
-      )}
+      <TransactionItemsList />
     </div>
   );
 }

@@ -6,12 +6,13 @@ import Moment from 'moment';
 const TransactionItem = ({ id, transaction }) => {
   const { payee, flow, amount, transactionDate } = transaction;
   return (
-    <div className='transaction-item'>
-      <p>Pay To: {payee}</p>
-      <p>Type: {flow}</p>
-      <p>Amount: ${amount}</p>
-      <p>Date: {Moment(transactionDate).format('MM/DD/YY')}</p>
-    </div>
+    <tr>
+      <td>{Moment(transactionDate).format('MM/DD/YY')}</td>
+      <td>{payee}</td>
+      <td>{transaction.getSubCategory()}</td>
+      <td>{amount}</td>
+      <td>{flow}</td>
+    </tr>
   );
 }
 
