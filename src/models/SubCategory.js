@@ -11,18 +11,18 @@ export default class SubCategory {
   }
 
   getBudgetedAmount() {
-    return this.budgeted;
+    return parseFloat(this.budgeted).toFixed(2);
   }
 
-  getTotalSpent() {
+  getTotalSpent(masterList) {
     let total = 0;
-    for(let key in this.transactionList) {
-      let transaction = this.transactionList[key];
+    this.transactionList.map(key => {
+      let transaction = masterList[key];
       if (transaction.getFlow() === 'Expense') {
-        total += transaction.getAmount();
+        total += parseFloat(transaction.getAmount());
       }
-    }
-    return total;
+    })
+    return total.toFixed(2);
   }
 
   addTransaction(key) {

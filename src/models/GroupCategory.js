@@ -10,6 +10,10 @@ export default class GroupCategory{
     return this.name;
   }
 
+  getCategoryNames() {
+    return Object.keys(this.subCategories);
+  }
+
   getTotalSpent() {
     // returns total spent.
   }

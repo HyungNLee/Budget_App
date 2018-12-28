@@ -8,9 +8,15 @@ const groupCategoriesReducer = (state = initialState.groupCategories, action) =>
   let newStateSlice;
   switch (action.type) {
     case types.ADD_TO_SUBLIST:
-      newGroupSlice = Object.assign({}, state[action.groupCategory]);
-      newGroupSlice.subCategories[action.subCategory].transactionList.push(action.newKey);
-      newStateSlice = Object.assign({}, state, {[action.groupCategory]: newGroupSlice});
+
+    // ** Object.assign doesn't clone the class or class methods.
+      // newGroupSlice = state[action.groupCategory];
+      // console.log(newGroupSlice);
+      // newGroupSlice.subCategories[action.subCategory].transactionList.push(action.newKey);
+      // newStateSlice = Object.assign({}, state, {[action.groupCategory]: newGroupSlice});
+    // *********
+      newStateSlice = state;
+      newStateSlice[action.groupCategory].subCategories[action.subCategory].addTransaction(action.newKey);
       console.log(newStateSlice);
       return newStateSlice;
     default:

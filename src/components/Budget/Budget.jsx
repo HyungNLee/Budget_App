@@ -1,9 +1,11 @@
 import React from 'react';
+// Component imports
+import GroupCategoriesList from '../GroupCategoriesList/GroupCategoriesList';
 
 function Budget() {
   return (
     <div>
-      ** TEST BUDGET **
+      <GroupCategoriesList />
     </div>
   );
 }

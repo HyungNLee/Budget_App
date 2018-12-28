@@ -20,7 +20,6 @@ const transactionListReducer = (state = initialState.transactionList, action) =>
     newTransactionListSlice = Object.assign({}, state, {
       [action.newKey]: newTrans
     });
-    console.log(newTransactionListSlice);
     return newTransactionListSlice;
   default:
     return state;

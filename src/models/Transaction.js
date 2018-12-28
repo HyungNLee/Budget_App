@@ -17,7 +17,7 @@ export default class Transaction {
   }
 
   getAmount() {
-    return this.amount;
+    return parseFloat(this.amount).toFixed(2);
   }
 
   getTransactionDate() {
