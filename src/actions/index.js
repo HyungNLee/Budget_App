@@ -21,3 +21,10 @@ export const addToSubList = (newKey, groupCategory, subCategory) => ({
   groupCategory,
   subCategory
 });
+
+export const updateBudget = (groupName, subName, newBudget) => ({
+  type: types.UPDATE_BUDGET,
+  groupName,
+  subName,
+  newBudget
+});

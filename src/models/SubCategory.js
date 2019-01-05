@@ -49,6 +49,7 @@ export default class SubCategory {
   }
 
   editBudget(newAmount) {
+    parseInt(newAmount);
     this.budgeted = newAmount;
   }
 }

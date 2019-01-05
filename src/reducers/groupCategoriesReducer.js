@@ -19,6 +19,11 @@ const groupCategoriesReducer = (state = initialState.groupCategories, action) =>
       newStateSlice[action.groupCategory].subCategories[action.subCategory].addTransaction(action.newKey);
       console.log(newStateSlice);
       return newStateSlice;
+    case types.UPDATE_BUDGET:
+      newStateSlice = state;
+      newStateSlice[action.groupName].subCategories[action.subName].editBudget(action.newBudget);
+      console.log(newStateSlice);
+      return newStateSlice;
     default:
       return state;
   }
