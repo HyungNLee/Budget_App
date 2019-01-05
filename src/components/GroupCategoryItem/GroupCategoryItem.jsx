@@ -11,13 +11,23 @@ const GroupCategoryItem = ({ name, category }) => {
   let subKeyArray = category.getCategoryNames();
 
   return (
-    <div>
-      <p>Name: {categoryName}</p>
-      <SubCategoriesList 
-        groupCategoryName={categoryName}
-        subKeyArray={subKeyArray}
-      />
-    </div>
+    <tr>
+      <th>{categoryName}</th>
+      <th></th>
+      <th></th>
+    </tr>
+    // <SubCategoriesList 
+    //   groupCategoryName={categoryName}
+    //   subKeyArray={subKeyArray}
+    // />
+
+    // <div>
+    //   <p>Name: {categoryName}</p>
+    //   <SubCategoriesList 
+    //     groupCategoryName={categoryName}
+    //     subKeyArray={subKeyArray}
+    //   />
+    // </div>
   );
 }
 
