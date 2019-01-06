@@ -34,10 +34,8 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
         <input type='hidden' value={groupKey} ref={(input) => {_groupCatName = input}} />
       </form>
 
-    // let foundElement = document.getElementById(formId);
     pElement.classList.toggle('hide');
     ReactDOM.render(formElement, tdElement);
-    // foundElement.classList.toggle('hide');
   }
 
   function setNewBudget(event) {
@@ -113,26 +111,8 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
           <th>BALANCE</th>
         </tr>
         {categoryView()}
-        {/* {Object.keys(groupCategories)
-          .map(groupName =>
-            <GroupCategoryItem
-              key={groupName}
-              name={groupName}
-            />
-          )
-        } */}
       </tbody>
     </table>
-    // <div>
-    //   {Object.keys(groupCategories)
-    //     .map(groupName =>
-    //       <GroupCategoryItem
-    //         key={groupName}
-    //         name={groupName}
-    //       />
-    //     )
-    //   }
-    // </div>
   );
 }
 

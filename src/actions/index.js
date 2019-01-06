@@ -28,3 +28,8 @@ export const updateBudget = (groupName, subName, newBudget) => ({
   subName,
   newBudget
 });
+
+export const newGroupCategory = (newGroupName) => ({
+  type: types.NEW_GROUP_CAT,
+  newGroupName
+});

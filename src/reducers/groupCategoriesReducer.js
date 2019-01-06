@@ -1,5 +1,6 @@
 import constants from '../constants';
 import { v4 } from 'uuid';
+import GroupCategory from '../models/GroupCategory';
 
 const { initialState, types } = constants;
 
@@ -22,6 +23,12 @@ const groupCategoriesReducer = (state = initialState.groupCategories, action) =>
     case types.UPDATE_BUDGET:
       newStateSlice = Object.assign({}, state);
       newStateSlice[action.groupName].subCategories[action.subName].editBudget(action.newBudget);
+      console.log(newStateSlice);
+      return newStateSlice;
+    case types.NEW_GROUP_CAT:
+      newStateSlice = Object.assign({}, state);
+      let newGroup = new GroupCategory(action.newGroupName);
+      newStateSlice[action.newGroupName] = newGroup;
       console.log(newStateSlice);
       return newStateSlice;
     default:
