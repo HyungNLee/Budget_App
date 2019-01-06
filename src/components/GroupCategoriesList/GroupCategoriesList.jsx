@@ -5,6 +5,8 @@ import { v4 } from 'uuid';
 import './GroupCategoriesList.css';
 import { updateBudget } from '../../actions';
 // Component imports.
+// Image imports.
+import plusPNG from '../../assets/plus.png';
 
 const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => {
 
@@ -66,7 +68,10 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
         groupCat.calculateBalances(transactionList);
         view.push(
           <tr key={newGroupKey}>
-            <td>{groupCat.getName()}</td>
+            <td>
+              {groupCat.getName()}
+              <a href='javascript:void(0)'><img src={plusPNG} /></a>
+            </td>
             <td>{formatToDollar(groupCat.getTotalBudget())}</td>
             <td>{formatToDollar(groupCat.getTotalSpent())}</td>
             <td>{formatToDollar(groupCat.getBalance())}</td>
