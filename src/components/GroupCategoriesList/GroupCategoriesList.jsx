@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { v4 } from 'uuid';
 import './GroupCategoriesList.css';
@@ -18,16 +19,26 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
     return '$' + amount;
   }
 
-  function turnToForm(groupKey, subCat, displayId) {
+  function turnToForm(groupKey, subCat, displayId, tableId) {
     console.log(groupKey);
     console.log(subCat);
     console.log(displayId);
 
     const formId = displayId + '-form';
+    const tdElement = document.getElementById(tableId);
     let pElement = document.getElementById(displayId);
-    let foundElement = document.getElementById(formId);
+
+    const formElement = 
+      <form className='budget-form' id={formId} onSubmit={setNewBudget}>
+        <input type='number' step='0.01' min='0' defaultValue={parseFloat(subCat.getBudgetedAmount())} ref={(input) => {_newBudget = input}} />
+        <input type='hidden' value={subCat.getName()} ref={(input) => {_subCatName = input}} />
+        <input type='hidden' value={groupKey} ref={(input) => {_groupCatName = input}} />
+      </form>
+
+    // let foundElement = document.getElementById(formId);
     pElement.classList.toggle('hide');
-    foundElement.classList.toggle('hide');
+    ReactDOM.render(formElement, tdElement);
+    // foundElement.classList.toggle('hide');
   }
 
   function setNewBudget(event) {
@@ -68,13 +79,14 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
           .map(subKey => {
             const subCat = groupCat.subCategories[subKey];
             const newSubKey = v4();
+            const tableId = v4();
             const displayId = v4();
             const formId = displayId + '-form';
             view.push(
               <tr key={newSubKey}>
                 <td>{subCat.getName()}</td>
-                <td className='budget-table'>
-                  <p className='budget-display' id={displayId} onClick={() => turnToForm(groupKey, subCat, displayId)}>
+                <td className='budget-table' id={tableId}>
+                  <p className='budget-display' id={displayId} onClick={() => turnToForm(groupKey, subCat, displayId, tableId)}>
                     {formatToDollar(subCat.getBudgetedAmount())}
                   </p>
                   <form className='budget-form hide' id={formId} onSubmit={setNewBudget}>

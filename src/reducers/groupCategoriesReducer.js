@@ -15,12 +15,12 @@ const groupCategoriesReducer = (state = initialState.groupCategories, action) =>
       // newGroupSlice.subCategories[action.subCategory].transactionList.push(action.newKey);
       // newStateSlice = Object.assign({}, state, {[action.groupCategory]: newGroupSlice});
     // *********
-      newStateSlice = state;
+      newStateSlice = Object.assign({}, state);
       newStateSlice[action.groupCategory].subCategories[action.subCategory].addTransaction(action.newKey);
       console.log(newStateSlice);
       return newStateSlice;
     case types.UPDATE_BUDGET:
-      newStateSlice = state;
+      newStateSlice = Object.assign({}, state);
       newStateSlice[action.groupName].subCategories[action.subName].editBudget(action.newBudget);
       console.log(newStateSlice);
       return newStateSlice;
