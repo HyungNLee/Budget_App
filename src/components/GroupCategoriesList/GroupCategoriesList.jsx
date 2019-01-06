@@ -5,7 +5,6 @@ import { v4 } from 'uuid';
 import './GroupCategoriesList.css';
 import { updateBudget } from '../../actions';
 // Component imports.
-import GroupCategoryItem from '../GroupCategoryItem/GroupCategoryItem.jsx';
 
 const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => {
 
