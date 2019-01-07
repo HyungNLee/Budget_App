@@ -70,7 +70,7 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
           <tr key={newGroupKey}>
             <td>
               {groupCat.getName()}
-              <a href='javascript:void(0)'><img src={plusPNG} /></a>
+              <button type='button' className='subCat-button'><img src={plusPNG} className='plus-img' /></button>
             </td>
             <td>{formatToDollar(groupCat.getTotalBudget())}</td>
             <td>{formatToDollar(groupCat.getTotalSpent())}</td>
