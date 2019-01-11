@@ -5,6 +5,7 @@ import { v4 } from 'uuid';
 import './GroupCategoriesList.css';
 import { updateBudget } from '../../actions';
 // Component imports.
+import SubCategoryBudgetDisplay from '../SubCategoryBudgetDisplay/SubCategoryBudgetDisplay.jsx';
 // Image imports.
 import plusPNG from '../../assets/plus.png';
 
@@ -87,16 +88,16 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
             view.push(
               <tr key={newSubKey}>
                 <td>{subCat.getName()}</td>
-                <td className='budget-table' id={tableId}>
-                  <p className='budget-display' id={displayId} onClick={() => turnToForm(groupKey, subCat, displayId, tableId)}>
-                    {formatToDollar(subCat.getBudgetedAmount())}
-                  </p>
-                  <form className='budget-form hide' id={formId} onSubmit={setNewBudget}>
-                    <input type='number' step='0.01' min='0' defaultValue={parseFloat(subCat.getBudgetedAmount())} ref={(input) => {_newBudget = input}} />
-                    <input type='hidden' value={subCat.getName()} ref={(input) => {_subCatName = input}} />
-                    <input type='hidden' value={groupKey} ref={(input) => {_groupCatName = input}} />
-                  </form>
-                </td>
+                <SubCategoryBudgetDisplay 
+                  key={tableId}
+                  id={tableId}
+                  displayId={displayId}
+                  formId={formId}
+                  groupKey={groupKey}
+                  name={subCat.getName()}
+                  budgetedAmount={subCat.getBudgetedAmount()}
+                />
+                
                 <td>{formatToDollar(subCat.getTotalSpent(transactionList))}</td>
                 <td>{formatToDollar(subCat.getBalance())}</td>
               </tr>
@@ -108,13 +109,15 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
 
   return (
     <table>
-      <tbody>
+      <thead>
         <tr>
           <th>NAME</th>
           <th>BUDGETED</th>
           <th>SPENT</th>
           <th>BALANCE</th>
         </tr>
+      </thead>
+      <tbody>
         {categoryView()}
       </tbody>
     </table>
