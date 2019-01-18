@@ -42,8 +42,8 @@ export const updateSubCatName = (newSubCatName, oldSubCatName, groupName) => ({
 });
 
 // Updates subcategory names on all transactions in transactionList
-export const updateSubCatNameTrans = (newSubCatName, oldSubCatName) => ({
+export const updateSubCatNameTrans = (subCatTransactionList, newSubCatName) => ({
   type: types.UPDATE_SUBCAT_NAME_TRANS,
-  newSubCatName,
-  oldSubCatName
+  subCatTransactionList,
+  newSubCatName
 })

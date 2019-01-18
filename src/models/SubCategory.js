@@ -15,6 +15,10 @@ export default class SubCategory {
     return parseFloat(this.budgeted).toFixed(2);
   }
 
+  getTransactionList() {
+    return this.transactionList;
+  }
+
   calculateBalances(masterList) {
     let total = 0;
     this.transactionList.map(key => {

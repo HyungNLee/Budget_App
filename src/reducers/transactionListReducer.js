@@ -23,12 +23,16 @@ const transactionListReducer = (state = initialState.transactionList, action) =>
       return newTransactionListSlice;
     case types.UPDATE_SUBCAT_NAME_TRANS:
       newTransactionListSlice = Object.assign({}, state);
-      Object.keys(newTransactionListSlice).map(transKey => {
-        let foundTrans = newTransactionListSlice[transKey];
+      // Object.keys(newTransactionListSlice).map(transKey => {
+      //   let foundTrans = newTransactionListSlice[transKey];
 
-        if(foundTrans.getSubCategory() === action.oldSubCatName) {
-          foundTrans.editSubCategory(action.newSubCatName);
-        }
+      //   if(foundTrans.getSubCategory() === action.oldSubCatName) {
+      //     foundTrans.editSubCategory(action.newSubCatName);
+      //   }
+      // });
+
+      action.subCatTransactionList.forEach(key => {
+        newTransactionListSlice[key].editSubCategory(action.newSubCatName);
       });
       console.log(newTransactionListSlice);
       return newTransactionListSlice;

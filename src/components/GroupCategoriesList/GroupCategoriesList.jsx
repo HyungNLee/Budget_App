@@ -56,6 +56,7 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
                   key={nameId}
                   groupKey={groupKey}
                   name={subCat.getName()}
+                  transactionList={subCat.getTransactionList()}
                 />
                 <SubCategoryBudgetDisplay 
                   key={tableId}
