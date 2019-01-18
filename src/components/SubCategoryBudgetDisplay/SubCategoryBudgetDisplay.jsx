@@ -53,7 +53,6 @@ class SubCategoryBudgetDisplay extends React.Component {
   render() {
     let displayView = null;
     if (this.state.showForm) {
-      console.log('FORM');
       displayView =
         <form className='budget-form' id={this.props.formId} onSubmit={this.setNewBudget}>
           <input type='number' step='0.01' min='0' defaultValue={parseFloat(this.props.budgetedAmount)} ref={(input) => { this._newBudget = input }} />
