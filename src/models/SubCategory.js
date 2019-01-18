@@ -52,4 +52,8 @@ export default class SubCategory {
     newAmount = parseFloat(newAmount);
     this.budgeted = newAmount;
   }
+
+  editName(newName) {
+    this.name = newName;
+  }
 }

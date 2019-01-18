@@ -31,4 +31,8 @@ export default class Transaction {
   getSubCategory() {
     return this.subCategory;
   }
+
+  editSubCategory(newSubCat) {
+    this.subCategory = newSubCat;
+  }
 }

@@ -6,6 +6,7 @@ import './GroupCategoriesList.css';
 import { updateBudget } from '../../actions';
 // Component imports.
 import SubCategoryBudgetDisplay from '../SubCategoryBudgetDisplay/SubCategoryBudgetDisplay.jsx';
+import SubCategoryNameDisplay from '../SubCategoryNameDisplay/SubCategoryNameDisplay.jsx';
 // Image imports.
 import plusPNG from '../../assets/plus.png';
 
@@ -19,45 +20,6 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
 
   function formatToDollar(amount) {
     return '$' + amount;
-  }
-
-  function turnToForm(groupKey, subCat, displayId, tableId) {
-    console.log(groupKey);
-    console.log(subCat);
-    console.log(displayId);
-
-    const formId = displayId + '-form';
-    const tdElement = document.getElementById(tableId);
-    let pElement = document.getElementById(displayId);
-
-    const formElement = 
-      <form className='budget-form' id={formId} onSubmit={setNewBudget}>
-        <input type='number' step='0.01' min='0' defaultValue={parseFloat(subCat.getBudgetedAmount())} ref={(input) => {_newBudget = input}} />
-        <input type='hidden' value={subCat.getName()} ref={(input) => {_subCatName = input}} />
-        <input type='hidden' value={groupKey} ref={(input) => {_groupCatName = input}} />
-      </form>
-
-    pElement.classList.toggle('hide');
-    ReactDOM.render(formElement, tdElement);
-  }
-
-  function setNewBudget(event) {
-    event.preventDefault();
-    
-    if (!_newBudget.value) {
-      return;
-    }
-    
-    console.log(_newBudget.value);
-    console.log(_subCatName.value);
-    console.log(_groupCatName.value);
-
-    // Add action to reducer to update budget of selected category.
-    dispatch(updateBudget(_groupCatName.value, _subCatName.value, parseFloat(_newBudget.value).toFixed(2)));
-
-    _newBudget = null;
-    _subCatName = null;
-    _groupCatName = null;
   }
 
   const categoryView = () => {
@@ -85,9 +47,16 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
             const tableId = v4();
             const displayId = v4();
             const formId = displayId + '-form';
+
+            // for NameDisplay
+            const nameId = v4();
             view.push(
               <tr key={newSubKey}>
-                <td>{subCat.getName()}</td>
+                <SubCategoryNameDisplay 
+                  key={nameId}
+                  groupKey={groupKey}
+                  name={subCat.getName()}
+                />
                 <SubCategoryBudgetDisplay 
                   key={tableId}
                   id={tableId}

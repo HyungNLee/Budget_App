@@ -31,6 +31,17 @@ const groupCategoriesReducer = (state = initialState.groupCategories, action) =>
       newStateSlice[action.newGroupName] = newGroup;
       console.log(newStateSlice);
       return newStateSlice;
+    case types.UPDATE_SUBCAT_NAME:
+      newStateSlice = Object.assign({}, state);
+      // let updatedSubCat = Object.assign({}, newStateSlice[action.groupName].subCategories[action.oldSubCatName]);
+      // updatedSubCat.editName(action.newSubCatName);
+      // delete newStateSlice[action.groupName].subCategories[action.oldSubCatName];
+      // newStateSlice[action.groupName].subCategories[action.newSubCatName] = updatedSubCat;
+      newStateSlice[action.groupName].subCategories[action.oldSubCatName].editName(action.newSubCatName);
+      newStateSlice[action.groupName].subCategories[action.newSubCatName] = newStateSlice[action.groupName].subCategories[action.oldSubCatName];
+      delete newStateSlice[action.groupName].subCategories[action.oldSubCatName];
+      console.log(newStateSlice);
+      return newStateSlice;
     default:
       return state;
   }
