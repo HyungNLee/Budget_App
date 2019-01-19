@@ -20,7 +20,6 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
 
   function addNewSubCat(groupName) {
     // Create dispatch for new subcat under groupName.
-    console.log(groupName);
     dispatch(newSubCategory(groupName));
   }
 

@@ -32,7 +32,8 @@ class SubCategoryNameDisplay extends React.Component {
   updateSubCatName(event) {
     event.preventDefault();
 
-    if (!this._newName.value) {
+    if (!this._newName.value || this._newName.value === this._oldName.value || this.props.groupCategories[this._groupCatName.value].subCategories[this._newName.value] != null) {
+      console.log('Input Error');
       return;
     }
 
@@ -69,7 +70,9 @@ class SubCategoryNameDisplay extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {};
+  return {
+    groupCategories: state.groupCategories,
+  };
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

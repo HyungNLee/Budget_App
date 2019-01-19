@@ -2,12 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { newGroupCategory } from './../../actions';
 
-const GroupCategoryForm = ({ dispatch }) => {
+const GroupCategoryForm = ({ dispatch, groupCategories }) => {
 
   let _catName = null;
 
   function addNewForm(event) {
     event.preventDefault();
+
+    if (!_catName.value || groupCategories[_catName.value] != null) {
+      console.log('Input Error');
+      return;
+    }
 
     // dispatch here to create new category.
     dispatch(newGroupCategory(_catName.value));
