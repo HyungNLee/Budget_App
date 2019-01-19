@@ -53,3 +53,10 @@ export const newSubCategory = (groupName) => ({
   type: types.NEW_SUBCAT,
   groupName
 });
+
+// Delete subcategory.
+export const deleteSubCategory = (groupName, subCatName) => ({
+  type: types.DELETE_SUBCAT,
+  groupName,
+  subCatName
+});

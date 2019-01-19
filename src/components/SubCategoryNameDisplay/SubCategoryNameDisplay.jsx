@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateSubCatName, updateSubCatNameTrans } from '../../actions';
+import { updateSubCatName, updateSubCatNameTrans, deleteSubCategory } from '../../actions';
 
 class SubCategoryNameDisplay extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class SubCategoryNameDisplay extends React.Component {
     this.showForm = this.showForm.bind(this);
     this.hideForm = this.hideForm.bind(this);
     this.updateSubCatName = this.updateSubCatName.bind(this);
+    this.deleteSubCategoryClick = this.deleteSubCategoryClick.bind(this);
   }
 
   showForm() {
@@ -47,6 +48,12 @@ class SubCategoryNameDisplay extends React.Component {
     this.hideForm();
   }
 
+  deleteSubCategoryClick() {
+    console.log(`Delete ${this.props.name} in ${this.props.groupKey}`);
+    this.dispatch(updateSubCatNameTrans(this.props.transactionList, ''));
+    this.dispatch(deleteSubCategory(this.props.groupKey, this.props.name));
+  }
+
   render() {
     let displayView = null;
 
@@ -64,6 +71,7 @@ class SubCategoryNameDisplay extends React.Component {
     return(
       <td>
         {displayView}
+        <button className='sub-cat-delete-button' onClick={this.deleteSubCategoryClick}>Minus</button>
       </td>
     )
   }

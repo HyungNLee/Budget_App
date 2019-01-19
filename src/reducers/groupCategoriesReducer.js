@@ -46,6 +46,10 @@ const groupCategoriesReducer = (state = initialState.groupCategories, action) =>
       newStateSlice[action.groupName].addSubCategory(newSubCat);
       console.log(newStateSlice);
       return newStateSlice;
+    case types.DELETE_SUBCAT:
+      newStateSlice = Object.assign({}, state);
+      delete newStateSlice[action.groupName].subCategories[action.subCatName];
+      return newStateSlice;
     default:
       return state;
   }
