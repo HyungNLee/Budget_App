@@ -46,4 +46,10 @@ export const updateSubCatNameTrans = (subCatTransactionList, newSubCatName) => (
   type: types.UPDATE_SUBCAT_NAME_TRANS,
   subCatTransactionList,
   newSubCatName
-})
+});
+
+// Create new sub category.
+export const newSubCategory = (groupName) => ({
+  type: types.NEW_SUBCAT,
+  groupName
+});

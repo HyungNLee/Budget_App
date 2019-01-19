@@ -1,6 +1,7 @@
 import constants from '../constants';
 import { v4 } from 'uuid';
 import GroupCategory from '../models/GroupCategory';
+import SubCategory from '../models/SubCategory';
 
 const { initialState, types } = constants;
 
@@ -33,13 +34,16 @@ const groupCategoriesReducer = (state = initialState.groupCategories, action) =>
       return newStateSlice;
     case types.UPDATE_SUBCAT_NAME:
       newStateSlice = Object.assign({}, state);
-      // let updatedSubCat = Object.assign({}, newStateSlice[action.groupName].subCategories[action.oldSubCatName]);
-      // updatedSubCat.editName(action.newSubCatName);
-      // delete newStateSlice[action.groupName].subCategories[action.oldSubCatName];
-      // newStateSlice[action.groupName].subCategories[action.newSubCatName] = updatedSubCat;
       newStateSlice[action.groupName].subCategories[action.oldSubCatName].editName(action.newSubCatName);
       newStateSlice[action.groupName].subCategories[action.newSubCatName] = newStateSlice[action.groupName].subCategories[action.oldSubCatName];
       delete newStateSlice[action.groupName].subCategories[action.oldSubCatName];
+      console.log(newStateSlice);
+      return newStateSlice;
+    case types.NEW_SUBCAT:
+      newStateSlice = Object.assign({}, state);
+      let newName = '**NEW**';
+      let newSubCat = new SubCategory(newName, 0);
+      newStateSlice[action.groupName].addSubCategory(newSubCat);
       console.log(newStateSlice);
       return newStateSlice;
     default:

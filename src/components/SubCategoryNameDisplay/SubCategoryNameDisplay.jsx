@@ -37,7 +37,6 @@ class SubCategoryNameDisplay extends React.Component {
     }
 
     this.dispatch(updateSubCatName(this._newName.value, this._oldName.value, this._groupCatName.value));
-    // this.dispatch(updateSubCatNameTrans(this._newName.value, this._oldName.value));
     this.dispatch(updateSubCatNameTrans(this.props.transactionList, this._newName.value));
 
     this._newName = null;

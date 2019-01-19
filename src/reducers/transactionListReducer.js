@@ -15,7 +15,7 @@ const transactionListReducer = (state = initialState.transactionList, action) =>
         action.transactionDate,
         action.groupCategory,
         action.subCategory
-      )
+      );
 
       newTransactionListSlice = Object.assign({}, state, {
         [action.newKey]: newTrans

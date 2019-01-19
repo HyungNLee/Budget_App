@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { v4 } from 'uuid';
 import './GroupCategoriesList.css';
-import { updateBudget } from '../../actions';
+import { updateBudget, newSubCategory } from '../../actions';
 // Component imports.
 import SubCategoryBudgetDisplay from '../SubCategoryBudgetDisplay/SubCategoryBudgetDisplay.jsx';
 import SubCategoryNameDisplay from '../SubCategoryNameDisplay/SubCategoryNameDisplay.jsx';
@@ -14,12 +14,14 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
 
   console.log(groupCategories);
 
-  let _newBudget = null;
-  let _subCatName = null;
-  let _groupCatName = null;
-
   function formatToDollar(amount) {
     return '$' + amount;
+  }
+
+  function addNewSubCat(groupName) {
+    // Create dispatch for new subcat under groupName.
+    console.log(groupName);
+    dispatch(newSubCategory(groupName));
   }
 
   const categoryView = () => {
@@ -32,8 +34,8 @@ const GroupCategoriesList = ({ dispatch, groupCategories, transactionList }) => 
         view.push(
           <tr key={newGroupKey}>
             <td>
-              {groupCat.getName()}
-              <button type='button' className='subCat-button'><img src={plusPNG} className='plus-img' /></button>
+              <p>{groupCat.getName()}</p>
+              <button type='button' className='subCat-button' onClick={() => addNewSubCat(groupCat.getName())}><img src={plusPNG} className='plus-img' /></button>
             </td>
             <td>{formatToDollar(groupCat.getTotalBudget())}</td>
             <td>{formatToDollar(groupCat.getTotalSpent())}</td>
